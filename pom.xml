@@ -12,7 +12,7 @@
 	<artifactId>weather</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>weather</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Spring Boot weather API using a third party API </description>
 	<url/>
 	<licenses>
 		<license/>
@@ -34,6 +34,22 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
