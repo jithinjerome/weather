@@ -12,7 +12,7 @@ public class RedisCacheManager {
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
-    private String getFromCache(String key){
+    public String getFromCache(String key){
         return redisTemplate.opsForValue().get(key);
     }
 
