@@ -17,6 +17,12 @@ public class RedisCacheManager {
     }
 
     public void saveToCache(String key, String value, int expirationInSeconds){
-        redisTemplate.opsForValue().set(key,value,expirationInSeconds, TimeUnit.SECONDS);
+        try{
+            redisTemplate.opsForValue().set(key,value);
+            redisTemplate.expire(key,expirationInSeconds, TimeUnit.SECONDS);
+        }catch (Exception e){
+            System.err.println("Redis error "+e.getMessage());
+        }
+
     }
 }

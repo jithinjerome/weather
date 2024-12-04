@@ -1,5 +1,7 @@
 package com.example.weather;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,11 +34,24 @@ public class WeatherService {
 
         try{
             String weatherData = restTemplate.getForObject(url,String.class);
-            redisCacheManager.saveToCache(city, weatherData, cacheExpiration);
-            return weatherData;
+
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode rootNode = mapper.readTree(weatherData);
+            String resolvedCity = rootNode.get("address").asText();
+            double temperature = rootNode.get("days").get(0).get("temp").asDouble();
+            String condition = rootNode.get("days").get(0).get("conditions").asText();
+            double feelsLike = rootNode.get("days").get(0).get("feelslike").asDouble();
+
+            WeatherDTO response = new WeatherDTO(resolvedCity,temperature, condition, feelsLike);
+            //String response = String.format("City: %-20s\nTemperature: %-10.2f °C\nCondition: %-25s\nFeels Like: %-10.2f °C", resolvedCity, temperature, condition, feelsLike);
+
+
+            redisCacheManager.saveToCache(city, mapper.writeValueAsString(response), cacheExpiration);
+
+            return mapper.writeValueAsString(response);
 
         }catch (Exception e){
-            throw new Exception("Failed to fetch weather data from API");
+            throw new Exception("Failed to fetch weather data from API: "+e.getMessage(),e);
 
         }
     }
