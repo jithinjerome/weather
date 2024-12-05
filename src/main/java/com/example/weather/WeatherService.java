@@ -29,7 +29,7 @@ public class WeatherService {
         if(cachedWeather != null){
             return cachedWeather;
         }
-        String url = String.format("https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/%s?key=%s",
+        String url = String.format("https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/%s?key=%s&unitGroup=metric",
                 city, apiKey);
 
         try{
