@@ -90,6 +90,9 @@ The **Weather API Project** is a Spring Boot application that fetches and provid
 
 2. **Subsequent Requests**:
    - If the same city is requested within the cache expiration time, data is served from Redis, avoiding external API calls.
+  
+## Project URL
+https://roadmap.sh/projects/weather-api-wrapper-service
 
 ## Contact
 For any inquiries or feedback, please contact:
